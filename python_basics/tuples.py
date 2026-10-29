@@ -298,6 +298,44 @@ def _():
 
 @app.cell
 def _():
+    # Q4
+
+    usr_inp = input("Enter five numbers")
+
+    usr_inp_tuple = tuple(int(x.strip()) for x in usr_inp.split(","))
+
+    print(f"The original tuple: {usr_inp_tuple}")
+
+    print(f"\nMinimum element: {min(usr_inp_tuple)}")
+
+    print(f"\nMaxmimum element: {max(usr_inp_tuple)}")
+    return
+
+
+@app.cell
+def _():
+    # Q5: Write a function get_stats(nums) that takes a tuple of numbers and returns a tuple containing the sum, average, minimum and maximum elements. Unpack the returned tuple and print each value.
+
+    def get_stats(nums):
+        total = sum(nums)
+        average = sum(nums) / len(nums)
+        minimum = min(nums)
+        maximum = max(nums)
+        return total, average, minimum, maximum
+
+    nums = (10, 20, 30, 40, 50)
+
+    total, average, minimum, maximum = get_stats(nums)
+
+    print(f"Total: {total}")
+    print(f"Average: {average}")
+    print(f"Minimum: {minimum}")
+    print(f"Maximum: {maximum}")
+    return
+
+
+@app.cell
+def _():
     return
 
 
