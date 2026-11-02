@@ -278,17 +278,593 @@ def _(loop_dict):
 
 
 @app.cell
-def _(loop_dict):
-    # accessing keys and values
-    for vals in loop_dict.keys():
-        print(loop_dict[vals])
+def _():
+    new_marks = {
+        "science": 99,
+        "maths": 100,
+        "computer_science": 88,
+        "hindi": 43,
+        "history": 71,
+    }
+    return (new_marks,)
+
+
+@app.cell
+def _(new_marks):
+    # print keys
+    for subject in new_marks.keys():
+        print(subject)
+    return
+
+
+@app.cell
+def _(new_marks):
+    # Print both keys and values along with total
+    total = 0
+
+    for subj in new_marks.keys():
+        print(f"Subject = {subj} and marks = {new_marks[subj]}")
+        total += new_marks[subj]
+
+    print(f"\nTotal marks: {total}")
+    return
+
+
+@app.cell
+def _(new_marks):
+    # Print values
+    for mark in new_marks.values():
+        print(mark)
     return
 
 
 @app.cell(hide_code=True)
 def _():
     mo.md(r"""
-    ### 8 hr and 38 mins into the video
+    **The items method**
+    - Output both the keys and values of a dictionary
+    """)
+    return
+
+
+@app.cell
+def _(new_marks):
+    print(new_marks.items())
+    return
+
+
+@app.cell
+def _(new_marks):
+    for detail in new_marks.items():
+        subject_i = detail[0]
+        marks_i = detail[1]
+        print(f"Subject: {subject_i} and Marks: {marks_i}")
+    return
+
+
+@app.cell
+def _(new_marks):
+    # Unpack the tuples in the for loop
+    for k_i, v_i in new_marks.items():
+        print(f"Subject: {k_i} and Marks: {v_i}")
+    return
+
+
+@app.cell
+def _(new_marks):
+    # Conditional Logic
+
+    for subj_i, mark_i in new_marks.items():
+        if subj_i in ["science", "hindi", "history"] and mark_i >= 60:
+            print(f"{subj_i} : Marks level 'Excellent'")
+    return
+
+
+@app.cell
+def _(new_marks):
+    for subj_k, mark_v in new_marks.items():
+        if mark_v>80:
+            print(f"{subj_k} level 'Excellent'")
+        elif mark_v>50 and mark_v<=80:
+            print(f"{subj_k} level 'Good'")
+        elif mark_v>0 and mark_v<=50:
+            print(f"{subj_k} level 'OK'")
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    ### Questions
+    - Q1: Create a dictionary called student_profile. Include keys like name, age, city and marks (as a list of scores). Print each piece of information using its key
+    - Q2: Define a dictionary with five subjects and their respective marks. Utilize the get() method to try accessing a subject that is not in the dictionary. Ensure the output prints "Not Available" as a default
+    - Q3: Construct a dictionary containing four product names and their prices. Prompt the user to enter a product name. Use the "in" keyword to eheck if it exists. If yes, display its price. Otherwise inform the user that product is not found
+    - Q4: Create a dictionary mapping five countries to their capitals. Iterate through the dictionary using the items() method and print each pair in the format Country -->  Capital
+    - Q5: Given a dictionary of marks for different subjects, loop over its values() to calculate and print the total marks and the average mark obtained
+    - Q6: Populate a dictionary with six student names and corresponding marks. Iterate through the dictionary and print all the names of students who scored greater than 80
+    - Q7: Write a function named merge_dicts to merge two dictionaries. It should accept two arguments d1 and d2 and return a new dictionary d3
+    """)
+    return
+
+
+@app.cell
+def _():
+    # Q1
+    student_profile = {
+        "name": "student_1",
+        "age": 40,
+        "city": "Bangalore",
+        "marks": [30, 12, 20, 22, 24]
+    }
+
+    for sp in student_profile.keys():
+        print(f"Attribute: {sp} and Value: {student_profile[sp]}")
+    return
+
+
+@app.cell
+def _():
+    # Q2
+
+    five_subjects = {
+        "geography": 40,
+        "history": 64,
+        "maths": 38,
+        "physics": 47,
+        "chemistry": 62
+    }
+
+    not_avail = five_subjects.get("computer_science", "Not Available")
+
+    print(not_avail)
+    return
+
+
+@app.cell
+def _():
+    # Q3
+
+    prod_dict = {
+        "rice": 89,
+        "rin": 10,
+        "vim": 8,
+        "ginger": 30
+    }
+
+    enter_prod_name = input("Enter a product name: ")
+
+    clean_prod_name = enter_prod_name.strip().lower()
+
+    if clean_prod_name in prod_dict.keys():
+        print(f"Price of product {enter_prod_name} is {prod_dict[clean_prod_name]}")
+    else:
+        print("Product not found")
+    return
+
+
+@app.cell
+def _():
+    # Q4
+
+    count_cap = {
+        "India": "Delhi",
+        "Pakistan": "Islamabad",
+        "USA": "Washington DC",
+        "France": "Paris",
+        "Germany": "Berlin"
+    }
+
+    for country, capital in count_cap.items():
+        print(f"{country} --> {capital}")
+    return
+
+
+@app.cell
+def _():
+    # Q5
+
+    subj_marks = {
+        "geography": 40,
+        "history": 64,
+        "maths": 38,
+        "physics": 47,
+        "chemistry": 62
+    }
+
+    avg_marks = 0
+
+    total_marks = sum(subj_marks.values())
+
+    # for marks_obt in subj_marks.values():
+    #     total_marks += marks_obt
+
+    avg_marks = total_marks/len(subj_marks)
+
+    print(f"Total Marks: {total_marks} and Average Marks: {avg_marks}")
+    return
+
+
+@app.cell
+def _():
+    # Q6
+
+    name_marks = {
+        "name_1": 68,
+        "name_2": 83,
+        "name_3": 94,
+        "name_4": 39,
+        "name_5": 85,
+        "name_6": 74
+    }
+
+    for name, score in name_marks.items():
+        if score > 80:
+            print(f"{name} scored {score}")
+    return
+
+
+@app.function
+# Q7
+
+def merge_dicts(d1, d2):
+    
+    d3 = {}
+    d3.update(d1)
+    d3.update(d2)
+    
+    return d3
+
+
+@app.cell
+def _():
+    d1 = {
+        "key_1": 10,
+        "key_2": 20,
+    }
+
+    d2 = {
+        "key_3": 30,
+        "key_4": 40,
+    }
+    print(merge_dicts(d1, d2))
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    ### Built-in functions on Dictionaries
+    """)
+    return
+
+
+@app.cell
+def _():
+    python_marks = {
+        "math": 85,
+        "science": 92,
+        "english": 78,
+        "hindi": 60,
+    }
+
+    # Use the len function for find the number of keys in the dictionary
+    print(f"Length of dict: {len(python_marks)}")
+
+    # sum of all values
+    print(f"\nSum of values: {sum(python_marks.values())}")
+
+    # min and max of values
+    print(f"\nMinimun value in the dict: {min(python_marks.values())}")
+
+    print(f"\nMaximum value in the dict: {max(python_marks.values())}")
+
+    # min and max of keys
+    print(f"\nMinimun key in the dict: {min(python_marks.keys())}")
+
+    print(f"\nMaximum key in the dict: {max(python_marks.keys())}")
+
+    # Sorting the dict by keys
+    print(f"\nDict sorted by keys: {sorted(python_marks)}")
+
+    # Sorting the dict using items method
+    sorted_dict = dict(sorted(python_marks.items()))
+    print(f"\nSorted using items method: {sorted_dict}")
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    #### Nested Dictionaries
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    ##### Store complex, heirarchical data
+    ```
+    students = {
+        "101": {"name": "Rahul", "age": 21, "city": "Delhi"},
+        "102": {"name": "Priya", "age": 20, "city": "Mumbai"},
+        "103": {"name": "Karan", "age": 22, "city": "Pune"},
+    }
+
+    - Accessing nested values - Chain the keys:
+    print(students["101"]["name"])
+
+    # Output
+    Rahul
+
+    print(students["102"]["city"])
+
+    #Output
+    Mumbai
+
+    - Adding a new element
+
+    students.update({
+        "104": {"name": "Sana", "age": 19, "city": "Chennai"},
+        "105": {"name": "S1", "age": 43, "city": "c1"},
+    })
+
+    - Updating an element
+
+    students["101"]["city"] = "Bangalore"
+
+    - Looping
+    for roll, info in students.items():
+        print(f"Student Roll {roll}: {info['name']} from {info['city']}")
+
+    # Output
+
+    Student Roll 101: Rahul from Bangalore
+    Student Roll 102: Priya from Mumbai
+    Student Roll 103: Karan from Pune
+    Student Roll 104: Sana from Chennai
+    Student Roll 105: S1 from c1
+    ```
+    """)
+    return
+
+
+@app.cell
+def _():
+    students = {
+        "101": {"name": "Rahul", "age": 21, "city": "Delhi"},
+        "102": {"name": "Priya", "age": 20, "city": "Mumbai"},
+        "103": {"name": "Karan", "age": 22, "city": "Pune"},
+    }
+
+    print(students["101"]["name"])
+    print(students["102"]["city"])
+    return (students,)
+
+
+@app.cell
+def _(students):
+    students.update({
+        "104": {"name": "n1", "age": 12, "city": "c1"},
+        "105": {"name": "n2", "age": 24, "city": "c2", "details": {"phone_no": 1234567891, "gender": "female"}}
+    })
+    return
+
+
+@app.cell
+def _(students):
+    print(students["105"]["details"]["phone_no"])
+    return
+
+
+@app.cell
+def _(students):
+    for k_c, v_c in students.items():
+        print(f"k = {k_c} and v = {v_c}")
+    return
+
+
+@app.cell
+def _(students):
+    for roll_com, val_com in students.items():
+        if roll_com == "105":
+            print(f"Special: {roll_com}, phone = {val_com['details']['phone_no']}")
+        else:
+            print(f"Roll Number: {roll_com}, name: {val_com['name']}")
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    #### Lists in Dictionaries
+    """)
+    return
+
+
+@app.cell
+def _():
+    student_details = {
+        "name": "Rahul",
+        "age": 21,
+        "subjects": ["Math", "Science", "English"],
+        "marks": [85, 92, 78],
+    }
+
+    student_details
+    return (student_details,)
+
+
+@app.cell
+def _(student_details):
+    # Accessing list elemets in a dictionary
+    print(student_details["subjects"])
+    print()
+    print(student_details["subjects"][0])
+    print()
+    print(student_details["subjects"][1])
+    return
+
+
+@app.cell
+def _(student_details):
+    # Update the list in the dictionary
+
+    student_details["subjects"].append("Hindi")
+    student_details["marks"].append(70)
+
+    student_details
+    return
+
+
+@app.cell
+def _(student_details):
+    print(sum(student_details["marks"]))
+    return
+
+
+@app.cell
+def _():
+    company = {
+        "engineering": ["emp_1", "emp_2", "emp_3"],
+        "marketing": ["emp_4", "emp_5"],
+        "hr": ["emp_6"],
+    }
+    company
+    return (company,)
+
+
+@app.cell
+def _(company):
+    for dept, employees in company.items():
+        print(f"Dept {dept} has {employees}")
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    #### Sorting using lambda functions
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    List of dictionaries
+    """)
+    return
+
+
+@app.cell
+def _():
+    student_details_1 = [
+        {"name": "Rahul", "marks": 85},
+        {"name": "Priya", "marks": 92},
+        {"name": "Karan", "marks": 78},
+        {"name": "Sana", "marks": 95},
+    ]
+    return (student_details_1,)
+
+
+@app.cell
+def _(student_details_1):
+    # Sort by marks
+
+    by_marks = sorted(student_details_1, key=lambda x: x["marks"])
+    print("Sorted by marks ascending")
+    for x in by_marks:
+        print(x)
+
+    print()
+    print()
+
+    by_marks = sorted(student_details_1, key=lambda x: x["marks"], reverse=True)
+    print("Sorted by marks descending")
+    for y in by_marks:
+        print(y)
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    Sorting a dictionary by its values
+    """)
+    return
+
+
+@app.cell
+def _():
+    marks_s = {
+        "math": 85,
+        "science": 92,
+        "english": 60,
+        "hindi": 78,
+    }
+    return (marks_s,)
+
+
+@app.cell
+def _(marks_s):
+    # Sort by values
+    sorted_marks = sorted(marks_s.items(), key=lambda item: item[1])
+    sorted_marks_dict = dict(sorted_marks)
+    print("Sorted by values ascending")
+    print(sorted_marks_dict)
+
+    print()
+
+    sorted_marks = sorted(marks_s.items(), key=lambda item: item[1], reverse=True)
+    sorted_marks_dict = dict(sorted_marks)
+    print("Sorted by values descending")
+    print(sorted_marks_dict)
+    return
+
+
+@app.cell
+def _(marks_s):
+    # Sort by keys
+    sorted_subj = sorted(marks_s.items(), key=lambda item: item[0])
+    sorted_subj_dict = dict(sorted_subj)
+    print("Sorted by keys ascending")
+    print(sorted_subj_dict)
+
+    print()
+
+    sorted_subj = sorted(marks_s.items(), key=lambda item: item[0], reverse=True)
+    sorted_subj_dict = dict(sorted_subj)
+    print("Sorted by keys ascending")
+    print(sorted_subj_dict)
+    return
+
+
+@app.cell
+def _():
+    marks_dl = {
+        "aksay": [43, 12, 98, 10, 22],
+        "priya": [76, 55, 34, 89, 61],
+        "rahul": [20, 45, 67, 30, 88],
+        "sneha": [91, 73, 50, 14, 62],
+        "karan": [38, 82, 47, 95, 29],
+    }
+    return (marks_dl,)
+
+
+@app.cell
+def _(marks_dl):
+    for key_dl, i_dl in marks_dl.items():
+        marks_dl_sorted = dict(sorted(marks_dl.items(), key=lambda z: z[1][-1], reverse=True))
+
+    print(marks_dl_sorted)
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    ## 9 hr and 15 mins into the video
     """)
     return
 
