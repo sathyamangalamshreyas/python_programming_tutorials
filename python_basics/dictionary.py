@@ -854,18 +854,333 @@ def _():
 
 @app.cell
 def _(marks_dl):
-    for key_dl, i_dl in marks_dl.items():
-        marks_dl_sorted = dict(sorted(marks_dl.items(), key=lambda z: z[1][-1], reverse=True))
+    # sort based on 4th index in the list
+    marks_dl_sorted = dict(sorted(marks_dl.items(), key=lambda z: z[1][-1], reverse=True))
 
     print(marks_dl_sorted)
+    return
+
+
+@app.cell
+def _(marks_dl):
+    # sort based on total of list
+    summation = dict(sorted(marks_dl.items(), key= lambda s: sum(s[1])))
+    print(f"Total from dict: {summation}")        
+    return
+
+
+@app.cell
+def _():
+    student_asc_marks = {
+        "anirudh": {"math": 87, "science": 92, "english": 74},
+        "priya": {"math": 65, "science": 78, "english": 90},
+        "rahul": {"math": 55 , "science": 60, "english": 48},
+        "sneha": {"math": 95 , "science": 88, "english": 82},
+        "karan": {"math": 70 , "science": 45, "english": 63},
+    }
+    return (student_asc_marks,)
+
+
+@app.cell
+def _(student_asc_marks):
+    # sort based on lowest marks in math
+    low_math = dict(sorted(student_asc_marks.items(), key= lambda z: z[1]["math"]))
+    print(low_math)
+    return
+
+
+@app.cell
+def _(student_asc_marks):
+    # sort descending based on total marks
+    total_marks_dict = dict(sorted(student_asc_marks.items(), key= lambda m: m[1]["math"] + m[1]["science"] + m[1]["english"], reverse=True))
+
+    print(total_marks_dict)
+    return
+
+
+@app.cell
+def _(student_asc_marks):
+    # Better method to sum total marks
+    total_marks_alt = dict(sorted(student_asc_marks.items(), key= lambda q: sum(q[1].values()), reverse=True))
+
+    print(total_marks_alt)
     return
 
 
 @app.cell(hide_code=True)
 def _():
     mo.md(r"""
-    ## 9 hr and 15 mins into the video
+    ### Dictionary Comprehension
+
+    - general format
+
+    '''
+    {keys: values (some operation), values in dict.items() (some comdition)}
+    ```
+
+    ```
+    {key: value for item in iterable}
+    ```
     """)
+    return
+
+
+@app.cell
+def _():
+    marks_com = {
+        "math": 85,
+        "science": 92,
+        "english": 60,
+        "hindi": 45,
+    }
+    return (marks_com,)
+
+
+@app.cell
+def _(marks_com):
+    # Keep only subkects where marks is greater than 80
+    gt_80 = {sub: m for sub, m in marks_com.items() if m > 80}
+    print(gt_80)
+    return
+
+
+@app.cell
+def _(marks_com):
+    # Transform aquare all marks
+    sq_mks = {mks: m ** 2 for mks, m in marks_com.items()}
+
+    print(sq_mks)
+    return
+
+
+@app.cell
+def _():
+    # Create a dictionary from two lists
+
+    subjects_com = ["math", "science", "english"]
+    scores_com = [85, 92, 78]
+
+    result_com = {keys: values for keys, values in zip(subjects_com, scores_com)}
+
+    print(result_com)
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    #### Using the "zip" function
+    """)
+    return
+
+
+@app.cell
+def _():
+    student_zip = ["Alice", "Bob", "Charlie", "David"]
+
+    maths = [90, 85, 70, 95]
+
+    science = [80, 90, 75, 85]
+
+    english = [85, 80, 90, 95]
+    return english, maths, science, student_zip
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    Use zip() to iterate over all four lists simultaneously.
+
+    Calculate the average marks for each student.
+
+    Print the student's name and average.
+
+    Identify the student with the highest average.
+
+    Create a dictionary containing student names as keys and their average marks as values.
+
+    Bonus challenge: Can you solve the entire problem using zip() and dictionary comprehension, without explicitly writing a traditional for loop?
+    """)
+    return
+
+
+@app.cell
+def _(english, maths, science, student_zip):
+    for stu_nme, mat, sci, eng in zip(student_zip, maths, science, english):
+        avg_mks = (mat + sci + eng) / 3
+        print(f"{stu_nme} scored {avg_mks:.3f} on average")
+    return
+
+
+@app.cell
+def _(english, maths, science, student_zip):
+    student_avg_dict = {
+        name_av: (mat_av + sci_av + eng_av) / 3
+        for name_av, mat_av, sci_av, eng_av in zip(student_zip, maths, science, english)
+    }
+
+    print(student_avg_dict)
+    return (student_avg_dict,)
+
+
+@app.cell
+def _(student_avg_dict):
+    top_student = max(student_avg_dict, key=student_avg_dict.get)
+
+    print(f"Top Student: {top_student}")
+
+    print(f"Avg marks of top student: {student_avg_dict[top_student]:.2f}")
+    return
+
+
+@app.cell
+def _():
+    students_list = ["Alice", "Bob", "Charlie", "David"]
+
+    maths_list = [90, 85, 70, 95]
+    science_list = [80, 90, 75, 85]
+    english_list = [85, 80, 90, 95]
+
+    # Create dictionary of student averages
+    student_avg_dict_f = {
+        name: (mat + sci + eng) / 3
+        for name, mat, sci, eng in zip(students_list, maths_list, science_list, english_list)
+    }
+
+    # Find the highest-scoring student
+    top_student_f = max(student_avg_dict_f, key=student_avg_dict_f.get)
+
+    # Display results
+    print("Student averages:", student_avg_dict_f)
+    print("Top student:", top_student_f)
+    print("Highest average:", student_avg_dict_f[top_student_f])
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    #### Questions
+
+    - Q1: Create a dict of 6 subjects and corresponding marks. Print the subject with the highest marks and one with the lowest. Use max(), min() functions along with a lambda expression
+    - Q2: Create a dict with details for 4 students. Include name, age, and city. Write a loop to print the full details of each student
+    - Q3: Create a dict where each key is a student's name and the corresponding value is a list of their marks in three different subjects. Calculate and print total marks and avg marks for each student
+    - Q4: Given a dict of subject and marks, sort marks by descending order and print only the top three marks
+    - Q5: using dict comprehension create a new dict where keys are numbers from 1 to 10(inclusive) and values are cubes of each number
+    - Q6: Given an existing dictionary of subjects and marks, use dictionary comprehension to generate a new dictionary such that only subjects where the student scored 40 or more are present
+    - Q7: Create two separate lists, one containing subject names and another containing the corresponding marks. Create a ditionary using list comprehension that combines corresponding elements of both lists
+    """)
+    return
+
+
+@app.cell
+def _():
+    # Q1
+    dict_q1 = {
+        "maths": 50,
+        "physics": 48,
+        "chemistry": 60,
+        "biology": 59,
+        "history": 62,
+        "geography": 61
+    }
+
+    min_subj_tup = min(dict_q1.items(), key=lambda m: m[1])
+    max_subj_tup = max(dict_q1.items(), key=lambda ma: ma[1])
+
+    print(min_subj_tup)
+    print(max_subj_tup)
+    return
+
+
+@app.cell
+def _():
+    # Q2: Create a dict with details for 4 students. Include name, age, and city. Write a loop to print the full details of each student
+
+    return
+
+
+@app.cell
+def _():
+    # Q3
+
+    dict_q3 = {
+        "stu_1": [94, 70, 70],
+        "stu_2": [78, 92, 46],
+        "stu_3": [39, 68, 57]
+    }
+
+
+    total_marks_q3 = {nme_q3: sum(m) for nme_q3, m in dict_q3.items()}
+
+    avg_marks_q3 = {nme_q3: (sum(m)/len(m)) for nme_q3, m in dict_q3.items()}
+
+    print(total_marks_q3)
+    print(avg_marks_q3)
+    return
+
+
+@app.cell
+def _():
+    # Q4
+
+    dict_q4 = {
+        "maths": 50,
+        "physics": 48,
+        "chemistry": 60,
+        "biology": 59,
+        "history": 62,
+        "geography": 61
+    }
+
+    top_sorted_q4 = sorted(dict_q4.items(), key= lambda x: x[1], reverse=True)[:3]
+
+    for subject_q4, marks_q4, in top_sorted_q4:
+        print(f"Subject {subject_q4} and marks {marks_q4}")
+    return
+
+
+@app.cell
+def _():
+    # Q5
+
+
+    dict_q5 = {q5_key: q5_key**3 for q5_key in range(1, 11)}
+
+    print(dict_q5)
+    return
+
+
+@app.cell
+def _():
+    # Q6
+
+    dict_q6 = {
+        "maths": 38,
+        "physics": 48,
+        "chemistry": 60,
+        "biology": 59,
+        "history": 62,
+        "geography": 20
+    }
+
+    new_dict_q6 = {key_q6: val_q6 for key_q6, val_q6 in dict_q6.items() if val_q6>40}
+
+    print(new_dict_q6)
+    return
+
+
+@app.cell
+def _():
+    # Q7: Create two separate lists, one containing subject names and another containing the corresponding marks. Create a ditionary using list comprehension that combines corresponding elements of both lists
+
+    list_q7_sub = ["maths", "physics", "chemistry", "biology", "history", "geography"]
+
+    list_q7_mks = [38, 48, 50, 78, 84, 79]
+
+    combined_list_q7 = {nme_q7: mks_q7 for nme_q7, mks_q7 in zip(list_q7_sub, list_q7_mks)}
+
+    print(combined_list_q7)
     return
 
 
