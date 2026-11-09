@@ -1,2 +1,4 @@
 .marimo.toml
 __marimo__/
+.venv
+*video*
